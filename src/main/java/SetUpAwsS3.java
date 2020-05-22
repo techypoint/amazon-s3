@@ -19,6 +19,7 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.model.S3VersionSummary;
 import com.amazonaws.services.s3.model.StorageClass;
@@ -51,18 +52,24 @@ public class SetUpAwsS3 {
         .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
         .withRegion(Regions.AP_SOUTH_1)
         .build();
-    String bucketNameToCreate="bucketnametocreate";
+    String bucketName="bucketnametocreate";
 
-//    createBucket(amazonS3,bucketNameToCreate);
+//    createBucket(amazonS3,bucketName);
 //    listBuckets(amazonS3);
-//    uploadObjectInABucket(amazonS3,bucketNameToCreate);
-//    listObjects(amazonS3,bucketNameToCreate);
-    listObjectsWithLimit(amazonS3,bucketNameToCreate);
+//    uploadObjectInABucket(amazonS3,bucketName);
+//    listObjects(amazonS3,bucketName);
+//    listObjectsWithLimit(amazonS3,bucketName);
+//    getObject(amazonS3,bucketName);
+//    copyObjectFromOneKeyToAnother(amazonS3);
+//    generatePreSignedURL(amazonS3,bucketName,"object key 1");
+//    generatePublicURL(amazonS3,bucketName,"object key 1");
+//    deleteObject(amazonS3,bucketName);
+//    deleteBuckets(amazonS3,bucketName);
   }
 
-  public static void createBucket(AmazonS3 amazonS3,String bucketNameToCreate){
-    if(!amazonS3.doesBucketExistV2(bucketNameToCreate)){
-      Bucket bucket=amazonS3.createBucket(new CreateBucketRequest(bucketNameToCreate));
+  public static void createBucket(AmazonS3 amazonS3,String bucketName){
+    if(!amazonS3.doesBucketExistV2(bucketName)){
+      Bucket bucket=amazonS3.createBucket(new CreateBucketRequest(bucketName));
     }else{
       LOG.info("Bucket name already exists");
     }
@@ -108,6 +115,13 @@ public class SetUpAwsS3 {
     }
     // finally delete bucket
     amazonS3.deleteBucket(bucketName);
+  }
+
+  public static void getObject(AmazonS3 amazonS3,String bucketName){
+    String objectKey="object key 1";
+    S3Object s3Object=amazonS3.getObject(bucketName,objectKey);
+    LOG.info("object key- "+s3Object.getKey());
+    LOG.info("object metadata- "+s3Object.getObjectContent());
   }
 
   public static void listObjects(AmazonS3 amazonS3,String bucketName){
@@ -160,13 +174,13 @@ public class SetUpAwsS3 {
   }
 
   public static void deleteObject(AmazonS3 amazonS3,String bucketName){
-    String objectKey="object key";
+    String objectKey="object key 1";
     amazonS3.deleteObject(new DeleteObjectRequest(bucketName,objectKey));
   }
 
   // copy object in bucketName1 having key - objectKey1 to bucketName2 having key - objectKey2
   public static void copyObjectFromOneKeyToAnother(AmazonS3 amazonS3){
-    String bucketName1="bucketName1"; // source bucket name
+    String bucketName1="bucketnametocreate"; // source bucket name
     String bucketName2="bucketName2"; // destination bucket name
     String objectKey1="objectKey1";   // source object key
     String objectKey2="objectKey2";   // destination object key
