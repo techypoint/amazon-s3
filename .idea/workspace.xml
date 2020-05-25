@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70dbe30e-aeed-4709-ada9-6ccfb143fa4a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SetUpAwsS3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SetUpAwsS3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/SetUpAwsS3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SetUpAwsS3.class" afterDir="false" />
@@ -80,29 +79,65 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1482" height="401" key="GridCell.Tab.0.bottom" timestamp="1590177785906">
+    <state x="594" y="167" key="#xdebugger.evaluate" timestamp="1590201456177">
       <screen x="72" y="30" width="1528" height="870" />
     </state>
-    <state width="1482" height="401" key="GridCell.Tab.0.bottom/72.30.1528.870@72.30.1528.870" timestamp="1590177785906" />
-    <state width="1482" height="401" key="GridCell.Tab.0.center" timestamp="1590177785904">
+    <state x="594" y="167" key="#xdebugger.evaluate/72.30.1528.870@72.30.1528.870" timestamp="1590201456177" />
+    <state x="72" y="30" width="1359" height="820" key="CommitChangelistDialog2" timestamp="1590418609233">
       <screen x="72" y="30" width="1528" height="870" />
     </state>
-    <state width="1482" height="401" key="GridCell.Tab.0.center/72.30.1528.870@72.30.1528.870" timestamp="1590177785904" />
-    <state width="1482" height="401" key="GridCell.Tab.0.left" timestamp="1590177785903">
+    <state x="72" y="30" width="1359" height="820" key="CommitChangelistDialog2/72.30.1528.870@72.30.1528.870" timestamp="1590418609233" />
+    <state x="172" y="130" width="1328" height="670" key="DiffContextDialog" timestamp="1590206837629">
       <screen x="72" y="30" width="1528" height="870" />
     </state>
-    <state width="1482" height="401" key="GridCell.Tab.0.left/72.30.1528.870@72.30.1528.870" timestamp="1590177785903" />
-    <state width="1482" height="401" key="GridCell.Tab.0.right" timestamp="1590177785905">
+    <state x="172" y="130" width="1328" height="670" key="DiffContextDialog/72.30.1528.870@72.30.1528.870" timestamp="1590206837629" />
+    <state width="1482" height="354" key="GridCell.Tab.0.bottom" timestamp="1590339042311">
       <screen x="72" y="30" width="1528" height="870" />
     </state>
-    <state width="1482" height="401" key="GridCell.Tab.0.right/72.30.1528.870@72.30.1528.870" timestamp="1590177785905" />
+    <state width="1482" height="354" key="GridCell.Tab.0.bottom/72.30.1528.870@72.30.1528.870" timestamp="1590339042311" />
+    <state width="1482" height="354" key="GridCell.Tab.0.center" timestamp="1590339042310">
+      <screen x="72" y="30" width="1528" height="870" />
+    </state>
+    <state width="1482" height="354" key="GridCell.Tab.0.center/72.30.1528.870@72.30.1528.870" timestamp="1590339042310" />
+    <state width="1482" height="354" key="GridCell.Tab.0.left" timestamp="1590339042309">
+      <screen x="72" y="30" width="1528" height="870" />
+    </state>
+    <state width="1482" height="354" key="GridCell.Tab.0.left/72.30.1528.870@72.30.1528.870" timestamp="1590339042309" />
+    <state width="1482" height="354" key="GridCell.Tab.0.right" timestamp="1590339042310">
+      <screen x="72" y="30" width="1528" height="870" />
+    </state>
+    <state width="1482" height="354" key="GridCell.Tab.0.right/72.30.1528.870@72.30.1528.870" timestamp="1590339042310" />
     <state x="172" y="130" width="1328" height="670" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1590178023362">
       <screen x="72" y="30" width="1528" height="870" />
     </state>
     <state x="172" y="130" width="1328" height="670" key="com.intellij.history.integration.ui.views.FileHistoryDialog/72.30.1528.870@72.30.1528.870" timestamp="1590178023362" />
-    <state x="484" y="292" key="com.intellij.ide.util.TipDialog" timestamp="1590126333416">
+    <state x="484" y="292" key="com.intellij.ide.util.TipDialog" timestamp="1590387787750">
       <screen x="72" y="30" width="1528" height="870" />
     </state>
-    <state x="484" y="292" key="com.intellij.ide.util.TipDialog/72.30.1528.870@72.30.1528.870" timestamp="1590126333416" />
+    <state x="484" y="292" key="com.intellij.ide.util.TipDialog/72.30.1528.870@72.30.1528.870" timestamp="1590387787750" />
+    <state x="383" y="151" width="906" height="628" key="find.popup" timestamp="1590320992563">
+      <screen x="72" y="30" width="1528" height="870" />
+    </state>
+    <state x="383" y="151" width="906" height="628" key="find.popup/72.30.1528.870@72.30.1528.870" timestamp="1590320992563" />
+    <state x="499" y="216" width="672" height="678" key="search.everywhere.popup" timestamp="1590418612925">
+      <screen x="72" y="30" width="1528" height="870" />
+    </state>
+    <state x="499" y="216" width="672" height="678" key="search.everywhere.popup/72.30.1528.870@72.30.1528.870" timestamp="1590418612925" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SetUpAwsS3.java</url>
+          <line>259</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SetUpAwsS3.java</url>
+          <line>249</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -18,7 +18,6 @@ import com.amazonaws.services.s3.model.ListVersionsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.model.S3VersionSummary;
@@ -28,11 +27,13 @@ import com.amazonaws.services.s3.model.VersionListing;
 import com.amazonaws.services.s3.model.lifecycle.LifecycleFilter;
 import com.amazonaws.services.s3.model.lifecycle.LifecyclePrefixPredicate;
 import com.amazonaws.services.s3.model.lifecycle.LifecycleTagPredicate;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,11 +41,11 @@ public class SetUpAwsS3 {
 
   private static Logger LOG = Logger.getLogger("logger");
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
 
     // now create BasicAWSCredentials object by using access key and secret key
-    BasicAWSCredentials basicAWSCredentials=new BasicAWSCredentials("AKIAIOKOL7QLI4OL6NAA",
-        "nszcxdwDuLwgNGrYSDRC0s48XfXcuzR6pmsGIGkb");
+    BasicAWSCredentials basicAWSCredentials=new BasicAWSCredentials("****************",
+        "****************************************");
 
     // get AmazonS3 Client by passing basicAWSCredentials and specify region which is closest to you
     // or let it pick default region
@@ -60,11 +61,15 @@ public class SetUpAwsS3 {
 //    listObjects(amazonS3,bucketName);
 //    listObjectsWithLimit(amazonS3,bucketName);
 //    getObject(amazonS3,bucketName);
+//    readFileContent(amazonS3,bucketName);
 //    copyObjectFromOneKeyToAnother(amazonS3);
 //    generatePreSignedURL(amazonS3,bucketName,"object key 1");
 //    generatePublicURL(amazonS3,bucketName,"object key 1");
 //    deleteObject(amazonS3,bucketName);
 //    deleteBuckets(amazonS3,bucketName);
+//    createLifeCycleConfiguration(amazonS3,bucketName);
+//    getLifeCycleConfiguration(amazonS3,bucketName);
+//    deleteLifeCycleConfiguration(amazonS3,bucketName);
   }
 
   public static void createBucket(AmazonS3 amazonS3,String bucketName){
@@ -74,6 +79,7 @@ public class SetUpAwsS3 {
       LOG.info("Bucket name already exists");
     }
   }
+
   public static void listBuckets(AmazonS3 amazonS3){
     List<Bucket> bucketList=amazonS3.listBuckets();
     for(Bucket bucket : bucketList) {
@@ -124,6 +130,17 @@ public class SetUpAwsS3 {
     LOG.info("object metadata- "+s3Object.getObjectContent());
   }
 
+  public static void readFileContent(AmazonS3 amazonS3,String bucketName) throws IOException {
+    String objectKey="object key 1";
+    S3Object s3Object=amazonS3.getObject(bucketName,objectKey);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(s3Object.getObjectContent()));
+    String line = null;
+    // read input stream line by line
+    while ((line = reader.readLine()) != null) {
+      LOG.info("line - "+line);
+    }
+  }
+
   public static void listObjects(AmazonS3 amazonS3,String bucketName){
     // list all objects in a buckets
     ObjectListing objectListing=amazonS3.listObjects(bucketName);
@@ -154,7 +171,6 @@ public class SetUpAwsS3 {
   }
 
   public static void uploadObjectInABucket(AmazonS3 amazonS3,String bucketName){
-
     // code to upload a text as a object
     String objectKey1="object key 1";
     String objectValue="Upload a Text String";
@@ -208,28 +224,22 @@ public class SetUpAwsS3 {
   }
 
   public static void createLifeCycleConfiguration(AmazonS3 amazonS3,String bucketName){
-    // rule1 move objects to Glacier Storage class after 60 days and
-    // delete objects after 120 days
-    BucketLifecycleConfiguration.Rule rule=new Rule()
-        .withId("rule id 1")
-        .addTransition(new Transition().withDays(60).withStorageClass(StorageClass.Glacier))
-        .withExpirationInDays(120)
-        .withStatus(BucketLifecycleConfiguration.ENABLED);
 
-    // apply this rules to the objects which gets filtered through prefix
+    // apply this rules to the objects having prefix heavyReports which gets filtered through prefix
     // LifecyclePrefixPredicate - to filter objects through prefix to report
-    BucketLifecycleConfiguration.Rule rule2=new Rule()
+    BucketLifecycleConfiguration.Rule rule1=new Rule()
         .withId("rule id 1")
         .withFilter(new LifecycleFilter(new LifecyclePrefixPredicate("heavyReports/")))
-        .addTransition(new Transition().withDays(60).withStorageClass(StorageClass.Glacier))
-        .withExpirationInDays(120)
+        .addTransition(new Transition().withDays(90).withStorageClass(StorageClass.Glacier))
+        .addTransition(new Transition().withDays(180).withStorageClass(StorageClass.DeepArchive))
+        .withExpirationInDays(700)
         .withStatus(BucketLifecycleConfiguration.ENABLED);
 
 
     // apply this rules to the objects which has keyName tag and value - tagValue
     // LifecycleTagPredicate - to filter objects through tags
-    BucketLifecycleConfiguration.Rule rule3=new Rule()
-        .withId("rule id 1")
+    BucketLifecycleConfiguration.Rule rule2=new Rule()
+        .withId("rule id 2")
         .withFilter(new LifecycleFilter(new LifecycleTagPredicate(new Tag("keyName","tagValue"))))
         .addTransition(new Transition().withDays(60).withStorageClass(StorageClass.Glacier))
         .withExpirationInDays(120)
@@ -237,7 +247,7 @@ public class SetUpAwsS3 {
 
     // create BucketLifecycleConfiguration and set rule list
     BucketLifecycleConfiguration bucketLifecycleConfiguration=new BucketLifecycleConfiguration();
-    bucketLifecycleConfiguration.setRules(Arrays.asList(rule,rule2,rule3));
+    bucketLifecycleConfiguration.setRules(Arrays.asList(rule1,rule2));
 
     // save the configuration
     amazonS3.setBucketLifecycleConfiguration(bucketName,bucketLifecycleConfiguration);
